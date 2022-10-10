@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>Hamming code</title>
+        <script>
+            function code(){
+                let mes = document.getElementById('inputMessege').value;
+                mes += String((Number(mes[0]) + Number(mes[1]) + Number(mes[3])) % 2);
+                mes += String((Number(mes[1]) + Number(mes[2]) + Number(mes[3])) % 2);
+                mes += String((Number(mes[0]) + Number(mes[2]) + Number(mes[3])) % 2);
+                document.getElementById('codedMessage').value = mes;
+            }
+            function mistake(){
+                let mis = document.getElementById('codedMessage').value;
+                let arr = Array.from(mis);
+                let indOfErr = Math.floor(Math.random() * arr.length);
+                arr[indOfErr] = String((Number(arr[indOfErr]) + 1) % 2);
+                mis = arr.join('')
+                document.getElementById('mistakeMessage').value = mis;
+            }
+            function decode(){
+                let decoded = document.getElementById('mistakeMessage').value;
+                let dec = Array.from(decoded);
+                let notErr1 = (Number(dec[0]) + Number(dec[1]) + Number(dec[3])) % 2 == Number(dec[4]);
+                let notErr2 = (Number(dec[1]) + Number(dec[2]) + Number(dec[3]) ) % 2 == Number(dec[5]);
+                let notErr3 = (Number(dec[0]) + Number(dec[2]) + Number(dec[3])) % 2 == Number(dec[6]);
+                if (notErr1){
+                    if (notErr2){
+                        dec[6] = String((Number(dec[6]) + 1) % 2);
+                    }else{
+                        if (notErr3)
+                            dec[5] = String((Number(dec[5]) + 1) % 2);
+                        else
+                            dec[2] = String((Number(dec[2]) + 1) % 2);
+                    }
+                }else{
+                    if (notErr2){
+                        if (notErr3)
+                            dec[4] = String((Number(dec[4]) + 1) % 2);
+                        else
+                            dec[0] = String((Number(dec[0]) + 1) % 2);
+                    
+                    }else{
+                        if (notErr3)
+                            dec[1] = String((Number(dec[1]) + 1) % 2);
+                        else
+                            dec[3] = String((Number(dec[3]) + 1) % 2);
+                    }
+                }
+                decoded = dec.join('')
+                document.getElementById('decodedMessage').value = decoded;
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Hamming code</h1>
+        <p><input type = 'text' id='inputMessege'/> four bites to code</p>
+        <p><input type = 'button' value = 'To code' onClick='code()'/> </p>
+        <p><input type = 'text' id='codedMessage'/> encoded message</p>
+        <p><input type = 'button' value = 'To make mistake' onClick='mistake()'/> </p>
+        <p><input type = 'text' id='mistakeMessage'/> message with mistake</p>
+        <p><input type = 'button' value = 'To decode' onClick='decode()'/> </p>
+        <p><input type = 'text' id='decodedMessage'/> decoded message</p>
+    </body>
+</html>

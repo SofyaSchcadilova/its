@@ -1,8 +1,7 @@
-//let fs = require('fs');
-//const t = fs.readFileSync(process.argv[2], 'utf8');
-//const s = fs.readFileSync(process.argv[2], 'utf8');
-t = "колокол"
-s = "колокол и колокольчик"
+//Sofya Schcadilova knmo-101
+let fs = require('fs');
+const t = fs.readFileSync(process.argv[2], 'utf-8');
+const s = fs.readFileSync(process.argv[2], 'utf-8');
 m = t.length;
 
 //Алфавит строки t
